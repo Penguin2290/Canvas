@@ -28,6 +28,8 @@ Users can choose to enter one of the following commands and respective attribute
 4. Q - Quit the program
 
 Sample Example:
+Please see the examples in the "Raw" version of this file to get the correct picture.
+
 enter command: C 20 5
 ----------------------
 |                    |
