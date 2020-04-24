@@ -4,9 +4,14 @@ import com.canvas.constant.ErrorConstant;
 import com.canvas.exception.CanvasException;
 import com.canvas.model.Point;
 import com.canvas.util.Util;
+import com.canvas.validation.ValidationHelper;
 
 import java.util.Scanner;
 
+/**
+ * Client class to take user input and create canvas, line , rectangle
+ * The class is responsible for taking user input, validating the input and calling appropriate CanvasService methods
+ */
 public class CanvasClient {
 
     public static void main(String args[]){
@@ -27,27 +32,25 @@ public class CanvasClient {
                 if (commandArr[0].compareToIgnoreCase("q") == 0) {
                     break;
                 } else if (commandArr[0].compareToIgnoreCase("c") == 0) {
-                    if (Util.validateCommandArrLength(commandArr, 3)) {
+                    if (ValidationHelper.validateCommandArrLength(commandArr, 3)) {
                         canvasService = new CanvasService(Integer.parseInt(commandArr[1]), Integer.parseInt(commandArr[2]));
                         canvasService.drawRectangle(new Point(0, 0), new Point(canvasService.getBreadth() + 1, canvasService.getHeight() + 1), true);
-                    } else {
-                        continue;
                     }
-
                 } else if (commandArr[0].compareToIgnoreCase("R") == 0) {
                     if (canvasService != null) {
-                        if (Util.validateCommandArrLength(commandArr, 5)) {
+                        if (ValidationHelper.validateCommandArrLength(commandArr, 5)) {
                             Point p1 = new Point(Integer.parseInt(commandArr[1]), Integer.parseInt(commandArr[2]));
                             Point p2 = new Point(Integer.parseInt(commandArr[3]), Integer.parseInt(commandArr[4]));
-                            if(!Util.validatePointsAreWithinBoundary(p1,p2,canvasService)){
+                            if(!ValidationHelper.validatePointsAreWithinBoundary(p1,p2,canvasService)){
                                 System.out.println(ErrorConstant.INVALID_ARGUMENT);
-                                break;
+                                continue;
+                            };
+                            if(!ValidationHelper.validateIfThePointRepresentsRectangle(p1,p2)){
+                                System.out.println(ErrorConstant.INVALID_RECTANGLE_ARGUMENT);
+                                continue;
                             };
                             canvasService.drawRectangle(p1, p2, false);
-                        } else {
-                            continue;
                         }
-
                     } else {
                         System.out.println(ErrorConstant.CANVAS_UNINITIALIZED);
                         continue;
@@ -55,18 +58,15 @@ public class CanvasClient {
 
                 } else if (commandArr[0].compareToIgnoreCase("l") == 0) {
                     if (canvasService != null) {
-                        if (Util.validateCommandArrLength(commandArr, 5)) {
+                        if (ValidationHelper.validateCommandArrLength(commandArr, 5)) {
                             Point p1 = new Point(Integer.parseInt(commandArr[1]), Integer.parseInt(commandArr[2]));
                             Point p2 = new Point(Integer.parseInt(commandArr[3]), Integer.parseInt(commandArr[4]));
-                            if(!Util.validatePointsAreWithinBoundary(p1,p2,canvasService)){
+                            if(!ValidationHelper.validatePointsAreWithinBoundary(p1,p2,canvasService)){
                                 System.out.println(ErrorConstant.INVALID_ARGUMENT);
-                                break;
+                                continue;
                             };
                             canvasService.drawLine(p1, p2);
-                        } else {
-                            continue;
                         }
-
                     } else {
                         System.out.println(ErrorConstant.CANVAS_UNINITIALIZED);
                         continue;
@@ -79,7 +79,7 @@ public class CanvasClient {
 
 
             } catch(CanvasException e){
-                System.out.print("Exception Occured! "+e.getMessage());
+                System.out.print("Exception Occured! "+e.getExceptionMessage());
                 System.out.print("Please retry.");
             }
             }

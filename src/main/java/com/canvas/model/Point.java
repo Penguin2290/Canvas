@@ -1,5 +1,8 @@
 package com.canvas.model;
 
+/**
+ * Class to hold user input co-ordinates
+ */
 public class Point {
     int x;
     int y;

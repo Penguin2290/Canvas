@@ -5,11 +5,19 @@ import com.canvas.model.Line;
 import com.canvas.model.Point;
 import com.canvas.model.Rectangle;
 
+/**
+ * Service class offering methods to create and draw the canvas, line , rectangle
+ */
 public class CanvasService {
     int breadth;
     int height;
     protected char[][] canvas =null;
 
+    /**
+     * Constructor for CanvasService,initializes the canvas
+     * @param breadth
+     * @param height
+     */
      public CanvasService(int breadth, int height){
         this.breadth=breadth;
         this.height=height;
@@ -32,12 +40,28 @@ public class CanvasService {
     }
 
 
+    /**
+     * Method to draw Line in a canvas
+     * throws CanvasException when lines are not horizontal or vertical
+     * @param p1
+     * @param p2
+     * @throws CanvasException
+     */
     public void drawLine(Point p1, Point p2)throws CanvasException {
         Line l=new Line(p1,p2);
         canvas =l.draw(canvas,false);
     }
-    public void drawRectangle(Point p1,Point p2,boolean isBorder)throws CanvasException{
+
+    /**
+     * Method to draw Rectangle in the canvas
+     * throws CanvasException when lines of rectangle are not horizontal or vertical
+     * @param p1
+     * @param p2
+     * @param canvasBorder
+     * @throws CanvasException
+     */
+    public void drawRectangle(Point p1,Point p2,boolean canvasBorder)throws CanvasException{
         Rectangle rectangle=new Rectangle(p1,p2);
-        canvas =rectangle.draw(canvas,isBorder);
+        canvas =rectangle.draw(canvas,canvasBorder);
     }
 }
