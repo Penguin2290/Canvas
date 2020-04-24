@@ -3,8 +3,9 @@ package com.canvas.service;
 
 import com.canvas.exception.CanvasException;
 import com.canvas.model.Point;
+import org.junit.Assert;
 import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
+
 
 
 public class CanvasServiceTest {
@@ -13,13 +14,15 @@ public class CanvasServiceTest {
     public void testDrawLine() throws CanvasException {
         CanvasService c=new CanvasService(10,10);
         c.drawLine(new Point(3,2),new Point(3,4));
-        Assertions.assertEquals(c.canvas.length,12);
+       Assert.assertEquals(c.canvas.length,12);
     }
 
     @Test
     public void testDrawRectangle() throws CanvasException {
         CanvasService c=new CanvasService(10,10);
         c.drawRectangle(new Point(2,2),new Point(5,5),false);
-        Assertions.assertEquals(c.canvas.length,12);
+      Assert.assertEquals(c.canvas.length,12);
     }
+
+
 }
