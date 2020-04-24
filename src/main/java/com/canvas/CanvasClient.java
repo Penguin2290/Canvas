@@ -1,8 +1,9 @@
-package com.canvas.service;
+package com.canvas;
 
 import com.canvas.constant.ErrorConstant;
 import com.canvas.exception.CanvasException;
 import com.canvas.model.Point;
+import com.canvas.service.CanvasService;
 import com.canvas.util.Util;
 import com.canvas.validation.ValidationHelper;
 
